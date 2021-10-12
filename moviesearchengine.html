@@ -79,8 +79,19 @@
         let rated = document.createElement("p");
         let poster = document.createElement("img");
         poster.src = product.Poster;
-        rated.innerText = "Rating : "+product.imdbRating;
-        container.append(poster,director,title,Year,rated);
+        let rat = +product.imdbRating;
+
+        if( rat > 8.5)
+        {
+            rated.innerText = "Rating : "+product.imdbRating + "  Recomended";
+            rated.style.color = "brown"
+            container.append(poster,director,title,Year,rated);
+        }
+        else{
+            rated.innerText = "Rating : "+product.imdbRating ;
+            container.append(poster,director,title,Year,rated);
+        }
+        
         
        
    }
