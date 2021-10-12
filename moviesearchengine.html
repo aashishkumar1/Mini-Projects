@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+            background-color: tomato;
+        }
+        input{
+            padding: 1%;
+            border: none;
+            background-color: cornflowerblue;
+            font-size: large;
+            font-weight: bold;
+        }
+        input:hover{
+            outline: none;
+            background-color: burlywood;
+        }
+        button{
+            cursor: pointer;
+            padding: 1%;
+            font-size: large;
+            font-weight: bold;
+        }
+        #data{
+            margin-left: 30%;
+            margin-top: 1%;
+            width:40%;
+            background-color: black;
+            color: white;
+            padding: 1%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Store</h1>
+    <input type="text" id="movie" placeholder="enter movie name"/>
+
+    <button onclick="movieapp()">Get Movie</button>
+
+    <div id="data"></div>
+</body>
+<script>
+   async function movieapp(){
+       let movie = document.getElementById("movie").value;
+       let res = await fetch(`http://www.omdbapi.com/?t=${movie}&apikey=af50d789`);
+       
+       let data = await res.json();
+       console.log(data)
+      show(data);
+   }
+   let container = document.getElementById("data");
+   function show(product){
+       container.innerHTML = null;
+       
+        let div = document.createElement('div');
+        let director = document.createElement('p');
+
+        director.innerText = "Director : "+product.Director;
+        let title = document.createElement('p');
+        title.innerText = "Movie : "+product.Title;
+        let Year = document.createElement('p');
+        Year.innerText = "Release : "+product.Year;
+        let rated = document.createElement("p");
+        rated.innerText = "Rating : "+product.imdbRating;
+        container.append(director,title,Year,rated);
+        
+       
+   }
+</script>
+</html>
