@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    input {
+      width: 200px;
+      margin-left: 50%;
+    }
+
+    #movies {
+      height: 200px;
+      width: 206px;
+      position: absolute;
+      left:50%;
+      border: 1px solid black;
+      overflow: scroll;
+      border-top: none;
+    }
+  </style>
+  <body>
+    <input oninput="debounce(main,1000)" type="text" id="movie" placeholder="Enter movie name" />
+
+    <div id="movies"></div>
+  </body>
+</html>
+<script>
+    var timerId;
+    let movies_div = document.getElementById("movies");
+
+    async function searchMovies(movie_name){
+        try{
+        let res = await fetch(`http://www.omdbapi.com/?apikey=af50d789&s=${movie_name}`)
+        let data = await res.json();
+        return data;
+        }
+        catch(e){
+            console.log("e:",e);
+        }
+    }
+
+    function appendMovies(movies){
+       
+        if(movies === undefined)
+        {
+            return false;
+        }
+        movies_div.innerHTML = null;
+        movies.forEach(function(movie){
+
+            let p = document.createElement("p");
+
+            p.innerText = movie.Title;
+
+            movies_div.append(p);
+
+        });
+    }
+
+    async function main(){
+        try{
+        let name = document.getElementById("movie").value;
+        
+        if(name.length <= 2){
+            return false;
+        }
+        
+        let res = await searchMovies(name);
+     
+        let movies_data =  res.Search;
+        console.log(movies_data)
+        appendMovies(movies_data);
+        
+    }
+    catch(e){
+      console.log(e);
+    }
+        
+      
+
+    }
+
+
+    function debounce(func,delay){
+        if(timerId)
+        {
+         clearTimeout(timerId);
+        }
+        timerId = setTimeout(function(){
+         
+             func();
+        },delay);
+        
+    }
+</script>
