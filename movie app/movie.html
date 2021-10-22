@@ -22,11 +22,28 @@
       overflow: scroll;
       border-top: none;
     }
+    #data{
+        width:48%;
+        background-color: aqua;
+    }
+    p{
+        cursor: pointer;
+    }
+    .inside_show{
+        width:45%;
+        margin-left: 1%;
+        font-weight: bold;
+        font-size: large;
+        padding: 1%;
+        display: inline-block;
+        vertical-align: top;
+    }
   </style>
   <body>
     <input oninput="debounce(main,1000)" type="text" id="movie" placeholder="Enter movie name" />
 
     <div id="movies"></div>
+    <div id="data"></div>
   </body>
 </html>
 <script>
@@ -43,7 +60,7 @@
             console.log("e:",e);
         }
     }
-
+    
     function appendMovies(movies){
        
         if(movies === undefined)
@@ -58,6 +75,27 @@
             p.innerText = movie.Title;
 
             movies_div.append(p);
+            
+            p.addEventListener("click",function(){
+                document.getElementById("data").innerHTML = null;
+                let show = document.getElementById("data");
+                let div1 = document.createElement("div");
+                let div2 = document.createElement("div");
+                div1.setAttribute("class","inside_show");
+                div2.setAttribute("class","inside_show");
+
+                let img = document.createElement("img")
+                img.src = movie.Poster;
+                let title_movie = document.createElement("p");
+                title_movie.innerHTML = "Title : " + movie.Title;
+                let released = document.createElement("p"); 
+                released.innerHTML = "Released : " + movie.Year;    
+                div1.append(img);
+                div2.append(title_movie,released);       
+                show.append(div1,div2);
+
+
+            });
 
         });
     }
@@ -73,7 +111,6 @@
         let res = await searchMovies(name);
      
         let movies_data =  res.Search;
-        console.log(movies_data)
         appendMovies(movies_data);
         
     }
@@ -81,8 +118,6 @@
       console.log(e);
     }
         
-      
-
     }
 
 
