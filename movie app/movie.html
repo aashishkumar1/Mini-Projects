@@ -6,14 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
+    body{
+      background-color: black;
+      color: white;
+    }
+    #navbar{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 5% 5% 5% 5% 7% 7% 15% 15% 10%;
+      margin: 2% 2%;
+      grid-gap: 1%;
+    }
+    #navbar > button{
+      background-color: aqua;
+      border: none;
+      text-align: center;
+      border-radius: 4%;
+      padding: 3%;
+    }
     input {
-      width: 200px;
-      margin-left: 50%;
+     padding: 2%;
     }
 
     #movies {
+      display:none;
       height: 200px;
       width: 206px;
       position: absolute;
@@ -38,12 +56,36 @@
         display: inline-block;
         vertical-align: top;
     }
-  </style>
-  <body>
-    <input oninput="debounce(main,1000)" type="text" id="movie" placeholder="Enter movie name" />
+    #container{
+        display: grid;
+        grid-template-columns: 22% 22% 22% 22%;
+        grid-gap:2.5%;
+        margin: 4% 5%;
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+    }
+     img {
 
+      width:100%;
+    }
+  </style>
+  <body>     
+    <div id="navbar">
+      <i class="fa fa-bars"></i>
+      <div>TV</div>
+      <div>Movies</div>
+      <div>Sports</div>
+      <div>Disney+</div>
+      <div>KIDS</div>
+      <input oninput="debounce(main,1000)" type="text" id="movie" placeholder="Enter movie name" />
+      <button id="marg">SUBSCRIBE</button>
+      <div>LOGIN</div>
+    </div>
+    <hr>
     <div id="movies"></div>
     <div id="data"></div>
+    <div id="container"></div>
   </body>
 </html>
 <script>
@@ -62,7 +104,7 @@
     }
     
     function appendMovies(movies){
-       
+       movies_div.style.display = "block";
         if(movies === undefined)
         {
             return false;
@@ -122,6 +164,7 @@
 
 
     function debounce(func,delay){
+      
         if(timerId)
         {
          clearTimeout(timerId);
@@ -131,5 +174,38 @@
              func();
         },delay);
         
+    }
+
+
+    //function to show movies in grid
+   
+    async function fet(){
+    
+     
+      let res = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=f3140b01725e9ffdbfdb2db6259fa3a5&language=en-US&page=1");
+      let data = await res.json();
+      show(data);
+
+    }
+    fet();
+    let cont = document.getElementById("container");
+    function show(moviegrid){
+       cont.innerHTML = null;
+      moviegrid.results.forEach((products)=>{
+
+
+        let div = document.createElement("div");
+
+        let img = document.createElement("img");
+        
+        img.src = `https://image.tmdb.org/t/p/w500/${products.poster_path}`;
+        let title = document.createElement("div");
+        title.innerHTML = products.title;
+        div.append(img,title);
+  
+        cont.append(div);
+
+      });
+
     }
 </script>
