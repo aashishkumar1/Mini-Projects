@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link rel="stylesheet" href="style.css">
+  
+  <body>
+      <div id="navbar"></div>
+      <hr>
+  </body>
+</html>
+<script  type="module">
+
+import navbar from "./navbar.js";
+
+let navbar_div = document.getElementById("navbar")
+
+navbar_div.innerHTML = navbar();
+
+//debouncing
+async function searchFood(food_name){
+        try{
+        let res = await fetch(`https://themealdb.com/api/json/v1/1/search.php?s=${food_name}`)
+        let data = await res.json();
+        return data;
+        }
+        catch(e){
+            console.log("e:",e);
+        }
+    }
+
+    function appendFood(foods){
+     
+
+        
+
+
+    }
+
+    async function main(){
+        try{
+        let name = document.getElementById("food").value;
+        
+        
+        let res = await searchFood(name);
+       
+       
+        appendFood(res);
+        
+    }
+    catch(e){
+      console.log(e);
+    }
+        
+    }
+    var timerId;
+    let t = document.getElementById("food");
+  t.addEventListener("input",()=>{
+       
+      if(timerId)
+      {
+       clearTimeout(timerId);
+      }
+      timerId = setTimeout(function(){
+       
+           main();
+      },1000);
+  });
+
+</script>

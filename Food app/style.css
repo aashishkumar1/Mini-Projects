@@ -1,0 +1,29 @@
+body{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.637);
+}
+#navbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  #food{
+   margin-left: 50%;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-weight: bold;
+  }
+  #options {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #options h3 {
+    padding-left: 30px;
+    padding-right: 10px;
+  }
+  a{
+      color: white;
+      text-decoration: none;
+  }
+  a:hover{
+      color: red;
+  }
