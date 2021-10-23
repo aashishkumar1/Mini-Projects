@@ -7,10 +7,21 @@
     <title>Document</title>
   </head>
   <link rel="stylesheet" href="style.css">
-  
+  <style>
+    #parent{
+      display:grid;
+      grid-template-columns: 20% 20% 20% 20%;
+      margin: 4% 4%;
+      text-align: center;
+    }
+    img{
+      width:80%;
+    }
+  </style>
   <body>
       <div id="navbar"></div>
       <hr>
+      <div id="parent"></div>
   </body>
 </html>
 <script  type="module">
@@ -32,10 +43,19 @@ async function searchFood(food_name){
             console.log("e:",e);
         }
     }
-
+    let parent = document.getElementById("parent");
     function appendFood(foods){
-     
-
+      parent.innerHTML = null;
+      foods.meals.forEach((foodie) => {
+         let div = document.createElement("div");
+        let img = document.createElement("img");
+        img.src = foodie.strMealThumb;
+        let p = document.createElement("p");
+        p.innerHTML = foodie.strMeal;
+        div.append(img,p);
+        parent.append(div);
+        
+      });
         
 
 
@@ -48,7 +68,7 @@ async function searchFood(food_name){
         
         let res = await searchFood(name);
        
-       
+        console.log(res.meals);
         appendFood(res);
         
     }
