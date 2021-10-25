@@ -27,3 +27,13 @@ body{
   a:hover{
       color: red;
   }
+  #rand{
+    width:30%;
+    height:20%;
+    text-align: center;
+    margin: 2% 35%;
+  }
+  img{
+    width: 100%;
+  }
+

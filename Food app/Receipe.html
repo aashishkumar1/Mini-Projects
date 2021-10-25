@@ -11,6 +11,7 @@
   <body>
       <div id="navbar"></div>
       <hr>
+      <div id="rand"></div>
   </body>
 </html>
 <script type="module">
@@ -21,4 +22,24 @@ let navbar_div = document.getElementById("navbar")
 
 navbar_div.innerHTML = navbar();
 
+let show = document.getElementById("rand");
+async function randomreceipe(){
+  let res = await fetch("https://themealdb.com/api/json/v1/1/random.php");
+  let data = await res.json();
+  console.log(data.meals)
+  appendData(data)
+}
+randomreceipe();
+
+function appendData(food)
+{ rand.innerHTML = null;
+  food.meals.forEach((foods) => {
+
+    let img = document.createElement("img");
+    img.src = foods.strMealThumb;
+    let name = document.createElement("p");
+    name.innerHTML = foods.strMeal;
+    rand.append(img,name);
+  });
+}
 </script>
