@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{background-color: black;}
+        .main{
+            width: 50%;
+            margin-left: 20%;
+            background-color: rgb(252, 166, 6);
+        }
+        #navbar{
+            width: 100%;
+            background-color: rgb(177, 171, 171);
+            height: 80px;
+        }
+        #navbar >div{
+            width: 100px;
+            height: 20px;
+            background-color: rgb(164, 164, 199);
+            margin-top: 20px;
+            margin-left: 30%;
+            padding: 10px;
+            display: inline-block;
+        }
+       
+        .box{
+            margin-left: 10%;
+            display: grid;
+            grid-template-columns: repeat(3,25%);
+        }
+        #form{
+            width: 40%;
+            margin-left: 30%;
+        }
+        input{
+            width: 150px;
+            height: 40px;
+            margin: 2%;
+        }
+        button{
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            font-size: 10px;
+            text-align: center;
+            margin: 2%;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+    <div id="navbar">
+        <div id="left"><a href="index.html">Post Data</a></div>
+        <div id="right"><a href="put.html">Put Data</a></div>
+
+    </div>
+    <div id="form">
+        <input type="number" id="product_id" placeholder="id"/>
+        <button onclick="deletproduct()">Delete product</button>
+    </div>
+    <div id="container"></div>
+    </div>
+  
+    
+</body>
+</html>
+<script>
+  
+async function deletproduct(){
+    let id = document.getElementById("product_id").value;
+    let response = await fetch(`http://localhost:3000/api/products/${id}`,{
+        method: "DELETE",
+        headers:{
+            "Content-Type": "application/json"
+        },
+    })
+}
+async function getData(){
+    let res = await fetch(`http://localhost:3000/api/products`)
+    let data =  await res.json()
+    console.log("data:",data);
+    showData(data)
+}
+getData()
+
+
+function showData(data1){
+    var mainBox = document.getElementById("container")
+    data1.forEach((d) =>{
+        let div = document.createElement("div")
+        div.setAttribute("class","box")
+        let name = document.createElement("p")
+        name.innerHTML ="Name :" +d.name
+        let id = document.createElement("p")
+        id.innerHTML = "ID :" +d.id;
+        let price = document.createElement("p")
+        price.innerHTML ="Price :" +d.price;
+        div.append(name,id,price)
+        mainBox.append(div)
+    })
+}
+
+</script>
