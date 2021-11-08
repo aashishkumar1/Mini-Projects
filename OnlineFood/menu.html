@@ -7,11 +7,13 @@
     <title>Food Menu</title>
     <style>
         #foodie{
-            width:20%;
             height: 20%;
-            margin-left: 30%;
+            margin: 3% 0% 0% 8%;
             text-align: center;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            grid-gap: 2%;
         }
         img{
             width:100%;
@@ -20,9 +22,21 @@
             cursor: pointer;
             margin-top: 1%;
         }
+        #line{
+            border: 1px solid black;
+            padding: 2%;
+            border-radius: 4%;
+            background-color: goldenrod;
+        }
+        h1{
+            text-align: center;
+            font-family: cursive;
+        }
     </style>
 </head>
 <body>
+    <h1>FOOD MANIA</h1>
+    <hr>
     <div id="foodie">
 
     </div>
@@ -30,10 +44,10 @@
 </html>
 <script>
   async function fetchData(){
-      let response = await fetch("https://themealdb.com/api/json/v1/1/random.php");
+      let response = await fetch("https://themealdb.com/api/json/v1/1/categories.php");
       let data = await response.json();
       console.log(data);
-      showData(data.meals);
+      showData(data.categories);
   } 
   fetchData();
   var foodie = document.getElementById("foodie");
@@ -41,10 +55,11 @@
 
     data.forEach((food) => {
         let div = document.createElement("div");
+        div.setAttribute("id","line");
         let img = document.createElement("img");
-        img.src = food.strMealThumb;
+        img.src = food.strCategoryThumb;
         let desc = document.createElement("div");
-        desc.innerHTML = food.strMeal;
+        desc.innerHTML = food.strCategory;
 
         let btn = document.createElement("button");
         btn.innerHTML = "CART"
