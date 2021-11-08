@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <style>
+        #foodie{
+            width:20%;
+            height: 20%;
+            margin-left: 30%;
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        img{
+            width:100%;
+        }
+        button{
+            cursor: pointer;
+            margin-top: 1%;
+        }
+    </style>
+</head>
+<body>
+    <div id="foodie">
+
+    </div>
+</body>
+</html>
+<script>
+  async function fetchData(){
+      let response = await fetch("https://themealdb.com/api/json/v1/1/random.php");
+      let data = await response.json();
+      console.log(data);
+      showData(data.meals);
+  } 
+  fetchData();
+  var foodie = document.getElementById("foodie");
+  function showData(data){
+
+    data.forEach((food) => {
+        let div = document.createElement("div");
+        let img = document.createElement("img");
+        img.src = food.strMealThumb;
+        let desc = document.createElement("div");
+        desc.innerHTML = food.strMeal;
+
+        let btn = document.createElement("button");
+        btn.innerHTML = "CART"
+
+        btn.addEventListener("click",()=>{
+            window.location.href = "cart.html";
+        })
+        div.append(img,desc,btn);
+        foodie.append(div);
+    });
+    
+  }
+</script>
