@@ -50,6 +50,12 @@
       showData(data.categories);
   } 
   fetchData();
+  if(localStorage.getItem("arr") === null)
+  {
+      localStorage.setItem("arr",JSON.stringify([]));
+      
+  }
+  
   var foodie = document.getElementById("foodie");
   function showData(data){
     foodie.innerHTML = null;
@@ -63,8 +69,13 @@
 
         let btn = document.createElement("button");
         btn.innerHTML = "CART"
+        
 
         btn.addEventListener("click",()=>{
+
+            let arr = JSON.parse(localStorage.getItem("arr"));
+            arr.push(food);
+            localStorage.setItem("arr",JSON.stringify(arr));
             window.location.href = "cart.html";
         })
         div.append(img,desc,btn);

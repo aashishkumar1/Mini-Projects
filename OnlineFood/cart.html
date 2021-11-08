@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <style>
+        #foodie{
+            height: 20%;
+            margin: 3% 0% 0% 8%;
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            grid-gap: 2%;
+        }
+        img{
+            width:100%;
+        }
         button{
             padding: 1%;
             cursor: pointer;
@@ -14,9 +26,32 @@
 </head>
 <body>
     <button onclick="place()">Place Order</button>
+    <div id="no"></div>
+    <div id="foodie"></div>
 </body>
 </html>
 <script>
+
+    
+    let data = JSON.parse(localStorage.getItem("arr"));
+    showData(data);
+    let no = document.getElementById("no");
+    no.innerHTML = data.length;
+    function showData(data){
+    foodie.innerHTML = null;
+    data.forEach((food) => {
+        let div = document.createElement("div");
+        div.setAttribute("id","line");
+        let img = document.createElement("img");
+        img.src = food.strCategoryThumb;
+        let desc = document.createElement("div");
+        desc.innerHTML = food.strCategory;
+    
+        div.append(img,desc);
+        foodie.append(div);
+    });
+    
+  }
     function place(){
         alert("Your order is accepted");
         setTimeout(()=>{
