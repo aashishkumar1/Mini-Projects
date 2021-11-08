@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Food Store</title>
     <style>
+        body{
+            background-color: cyan;
+        }
         #container{
             display: grid;
             grid-template-columns: 10% 20%;
@@ -41,6 +44,20 @@
             text-decoration: none;
             color:chartreuse;
         }
+        h1{
+            text-align: center;
+        }
+        #line{
+            width:30%;
+            height:10%;
+            text-align: center;
+            margin-left: 35%;
+            border: 1px solid black;
+            background-color: chartreuse;
+        }
+        img{
+            width:100%;
+        }
     </style>
 </head>
 <body>
@@ -52,5 +69,35 @@
         </div>
     </div>
     <hr>
+    <h1>Random Meal</h1>
+    <div id="foodie">
+    </div>
 </body>
 </html>
+<script>
+  async function fetchData(){
+      let response = await fetch("https://themealdb.com/api/json/v1/1/random.php");
+      let data = await response.json();
+      console.log(data);
+      showData(data.meals);
+  }
+  fetchData();
+  setInterval(fetchData,3000); 
+  var foodie = document.getElementById("foodie");
+  function showData(data){
+    foodie.innerHTML = null;
+    data.forEach((food) => {
+        let div = document.createElement("div");
+        div.setAttribute("id","line");
+        let img = document.createElement("img");
+        img.src = food.strMealThumb;
+        let desc = document.createElement("div");
+        desc.innerHTML = food.strMeal;
+
+        
+        div.append(img,desc);
+        foodie.append(div);
+    });
+    
+  }
+</script>

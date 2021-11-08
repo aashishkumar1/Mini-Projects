@@ -52,7 +52,7 @@
   fetchData();
   var foodie = document.getElementById("foodie");
   function showData(data){
-
+    foodie.innerHTML = null;
     data.forEach((food) => {
         let div = document.createElement("div");
         div.setAttribute("id","line");
