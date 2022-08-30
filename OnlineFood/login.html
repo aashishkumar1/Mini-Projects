@@ -58,7 +58,6 @@ fetch("https://masai-api-mocker.herokuapp.com/auth/login",{
      console.log(res);
      fetchData(user_data.username,res.token);
 })
-
 .catch((err) =>{
     console.log(err);
 });
