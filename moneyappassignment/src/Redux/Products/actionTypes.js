@@ -1,2 +1,0 @@
-export const ADD_DATA_IN_CART = 'ADD_DATA_IN_CART';
-export const REMOVE_DATA_FROM_CART = 'REMOVE_DATA_FROM_CART';
