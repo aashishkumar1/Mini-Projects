@@ -1,0 +1,7 @@
+.nav{
+    display: grid;
+    grid-template-columns: 10% 10% 10%;
+    grid-gap:5%;
+    font-weight: bold;
+}
+

@@ -1,0 +1,35 @@
+.cart{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 70% 22%;
+    grid-gap:5%;
+}
+.cart > div:nth-child(2){
+    border: 1px solid black;
+}
+.orderSummary{
+    height: 50%;
+    text-align: center;
+}
+.boxes{
+    height: 100%;
+}
+
+.boxes > div{
+    border: 1px solid black;
+    box-shadow: 4px 4px 4px black;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 2% 2% 2% 2% ;
+    padding: 1%;
+}
+.boxes > div > img{
+    width: 10%;
+    height: 10%;
+    border: 1px solid black;
+}
+.boxes > div > p{
+    display: inline;
+    padding: 0% 2% 5% 5%;
+}
+
